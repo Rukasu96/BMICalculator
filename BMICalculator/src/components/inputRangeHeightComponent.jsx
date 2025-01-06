@@ -1,4 +1,4 @@
-import { useState, useContext} from "react";
+import { useState, useContext, useMemo} from "react";
 import BMIContext from "../context/BMIContext";
 
 function InputRangeHeight({
@@ -9,6 +9,8 @@ function InputRangeHeight({
 
   const [heightValue, setValue] = useState(minValue)
   const {setHeight} = useContext(BMIContext)
+
+  const heightMemo = useMemo(() => setHeight(heightValue),[heightValue])
 
   return(
     <div>
@@ -27,7 +29,7 @@ function InputRangeHeight({
           value={heightValue}
           onChange={(e) => {
             setValue(e.target.value)
-            setHeight(heightValue)
+            heightMemo
           }}
           />
         </div>

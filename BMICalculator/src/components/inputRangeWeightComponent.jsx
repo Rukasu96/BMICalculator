@@ -1,4 +1,4 @@
-import { useState, useContext} from "react";
+import { useState, useContext, useMemo} from "react";
 import BMIContext from "../context/BMIContext";
 
 function InputRangeWeight({
@@ -10,6 +10,8 @@ function InputRangeWeight({
   const [weightValue, setValue] = useState(minValue)
   const {setWeight} = useContext(BMIContext)
 
+  const weightMemo = useMemo(() => setWeight(weightValue),[weightValue])
+  
   return(
     <div>
       <div className='label'>
@@ -27,7 +29,7 @@ function InputRangeWeight({
           value={weightValue}
           onChange={(e) => {
             setValue(e.target.value)
-            setWeight(weightValue)
+            weightMemo
           }}
           />
         </div>
